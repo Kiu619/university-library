@@ -1,22 +1,22 @@
 'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { DefaultValues, FieldValues, SubmitHandler, useForm, UseFormReturn } from "react-hook-form"
-import { z, ZodType } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { DefaultValues, FieldValues, Path, SubmitHandler, useForm, UseFormReturn } from "react-hook-form";
+import { ZodType } from "zod";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import Link from "next/link";
+  FormMessage
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
+import Link from "next/link";
+import FileUpload from "./FileUpload";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -83,7 +83,9 @@ const AuthForm = <T extends FieldValues>({ type, schema, defautlValues, onSubmit
               )}
             />
           ))}
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="form-btn">
+            {isSignIn ? "Sign in" : "Sign up"}
+          </Button>
         </form>
       </Form>
 
@@ -91,7 +93,7 @@ const AuthForm = <T extends FieldValues>({ type, schema, defautlValues, onSubmit
         {isSignIn
           ? "Don't have an account?"
           : "Already have an account?"}
-        <Link href={isSignIn ? '/sign-in' : '/sign-up'}
+        <Link href={isSignIn ? '/sign-up' : '/sign-in'}
           className="font-bold text-primary hover:underline">
           {isSignIn ? " Sign up" : " Sign in"}
         </Link>
